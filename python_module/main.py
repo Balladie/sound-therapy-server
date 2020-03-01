@@ -5,5 +5,7 @@ if (__name__ == '__main__'):
     latitude = sys.argv[2]
     longitude = sys.argv[3]
 
-    res = mode + "_" + latitude + "_" + longitude + ".mp3"
+    mode_name = ['adrenaline', 'healing', 'deepsleep', 'focus', 'recovery']
+    
+    res = mode_name[int(mode)] + '/Track-01.mp3'
     print(res, end='')
