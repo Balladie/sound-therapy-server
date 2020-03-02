@@ -11,8 +11,8 @@ app.get('/sound', (req, res) => {
     var latitude = req.query.latitude.toString();
     var longitude = req.query.longitude.toString();
 
-    console.log("## GET request on: /sound");
-    console.log("## running python module\n");
+    console.log("[I] GET request on: /sound");
+    console.log("[I] running python module\n");
 
     const { spawn } = require('child_process')
     const pyProg = spawn('python', ['./../python_module/main.py', mode, latitude, longitude]);
@@ -40,4 +40,12 @@ app.get('/sound', (req, res) => {
     });
 });
 
-app.listen(8080, () => console.log("Application listening on port 8080!\n"));
+const { spawn } = require('child_process')
+const pyOnCreate = spawn('python', ['./../python_module/onCreate.py']);
+pyOnCreate.stdout.on('data', function(data) {
+    console.log('\n[onCreate] Running onCreate.py before app starts...');
+    console.log(data.toString());
+    console.log('[onCreate] Done.\n');
+});
+
+app.listen(8080, () => console.log("[App] Application listening on port 8080!\n"));

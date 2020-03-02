@@ -1,0 +1,44 @@
+{
+    "base": "stations",
+    "clouds": {
+        "all": 56
+    },
+    "cod": 200,
+    "coord": {
+        "lat": 0,
+        "lon": 0
+    },
+    "dt": 1583133137,
+    "id": 6295630,
+    "main": {
+        "feels_like": 304.75,
+        "grnd_level": 1011,
+        "humidity": 80,
+        "pressure": 1011,
+        "sea_level": 1011,
+        "temp": 301.56,
+        "temp_max": 301.56,
+        "temp_min": 301.56
+    },
+    "name": "Globe",
+    "rain": {
+        "3h": 1.75
+    },
+    "sys": {
+        "sunrise": 1583129334,
+        "sunset": 1583172935
+    },
+    "timezone": 0,
+    "weather": [
+        {
+            "description": "light rain",
+            "icon": "10d",
+            "id": 500,
+            "main": "Rain"
+        }
+    ],
+    "wind": {
+        "deg": 159,
+        "speed": 4.28
+    }
+}

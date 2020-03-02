@@ -1,11 +1,20 @@
 import sys
+from WeatherInfo import WeatherInfo
+from SoundChoiceEngine import SoundChoice
 
 if (__name__ == '__main__'):
-    mode = sys.argv[1]
+    modeIdx = sys.argv[1]
     latitude = sys.argv[2]
     longitude = sys.argv[3]
 
     mode_name = ['adrenaline', 'healing', 'deepsleep', 'focus', 'recovery']
-    
-    res = mode_name[int(mode)] + '/Track-01.mp3'
-    print(res, end='')
+
+    weatherInfo = WeatherInfo(latitude, longitude)
+    weatherInfo.saveOpenWeatherDict()
+    weatherMain = weatherInfo.getMainWeather()
+    timeRange = weatherInfo.getClassifiedTimeName()
+
+    engine = SoundChoice(int(modeIdx), weatherMain, timeRange)
+    link = engine.getBestSound(algorithm='representative')
+
+    print(link)
