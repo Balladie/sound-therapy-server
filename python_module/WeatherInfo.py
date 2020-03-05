@@ -10,7 +10,7 @@ class WeatherInfo:
 
     def saveOpenWeatherDict(self, customInput=False):
         if customInput:
-            with open('./for_test.json') as json_file:
+            with open('./data/for_test.json') as json_file:
                 self.weather = json.load(json_file)
         else:
             url = "https://api.openweathermap.org/data/2.5/weather?lat=" + str(self.lat) + "&lon=" + str(self.lon) + "&appid=" + self.appid
@@ -23,6 +23,9 @@ class WeatherInfo:
             print(json.dumps(self.weather, indent=4, sort_keys=True))
 
     def getMainWeather(self):
+        weatherId = self.weather['weather'][0]['id']
+        if weatherId >= 700 and weatherId < 800:
+            return 'Atmosphere'
         return self.weather['weather'][0]['main']
 
     # 6 kinds of time ranges
@@ -94,3 +97,6 @@ class WeatherInfo:
             elif tDawn <= dt and dt < tNextMidnight:
                 return 'Dawn'
         return ''
+
+    def getHumidity(self):
+        return self.weather['main']['humidity']

@@ -15,6 +15,10 @@ if (__name__ == '__main__'):
     timeRange = weatherInfo.getClassifiedTimeName()
 
     engine = SoundChoice(int(modeIdx), weatherMain, timeRange)
-    link = engine.getBestSound(algorithm='representative')
+    links = engine.getBestSound(algorithm='kangMapV1')
 
-    print(link)
+    for i, link in enumerate(links):
+        if i == len(links) - 1:
+            print(link, end='')
+        else:
+            print(link, end=',')

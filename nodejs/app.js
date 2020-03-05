@@ -19,10 +19,8 @@ app.get('/sound', (req, res) => {
 
     pyProg.stdout.on('data', function(data) {
 
-        //console.log(data.toString() + '\n');
         var musicDatas = data.toString().split(",");
         let links = [];
-
         var i;
         for (i = 0; i < musicDatas.length; ++i) {
             const newLink = {
