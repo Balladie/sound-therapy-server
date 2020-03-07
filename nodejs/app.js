@@ -10,9 +10,13 @@ app.get('/sound', (req, res) => {
     var mode = req.query.mode.toString();
     var latitude = req.query.latitude.toString();
     var longitude = req.query.longitude.toString();
+    
+    var datetime = new Date();
 
+    console.log(datetime)
     console.log("[I] GET request on: /sound");
     console.log("[I] running python module\n");
+    console.log("[I] Input: " + mode + ", " + latitude + ", " + longitude + "\n")
 
     const { spawn } = require('child_process')
     const pyProg = spawn('python', ['./../python_module/main.py', mode, latitude, longitude]);
