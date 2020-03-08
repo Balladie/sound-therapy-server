@@ -5,6 +5,11 @@ const app = express();
 var dir = __dirname + '/sounds';
 app.use(express.static(dir));
 
+let testData = [
+    {"link": "adrenaline/Track-01.mp3", "mode": "0"},
+    {"link": "adrenaline/Track-02.mp3", "mode": "0"}
+];
+
 app.get('/sound', (req, res) => {
 
     var mode = req.query.mode.toString();
@@ -18,8 +23,14 @@ app.get('/sound', (req, res) => {
     console.log("[I] running python module\n");
     console.log("[I] Input: " + mode + ", " + latitude + ", " + longitude + "\n")
 
+    // test
+    //console.log('##### Sending data: #####')
+    //console.log(testData);
+    //console.log('#########################\n')
+    //return res.json(testData);
+
     const { spawn } = require('child_process')
-    const pyProg = spawn('python', ['./../python_module/main.py', mode, latitude, longitude]);
+    const pyProg = spawn('python', ['-u', './../python_module/main.py', mode, latitude, longitude]);
 
     pyProg.stdout.on('data', function(data) {
 
@@ -38,7 +49,15 @@ app.get('/sound', (req, res) => {
         console.log(links);
         console.log('#########################\n')
 
-        return res.status(201).json(links);
+        return res.json(links);
+    });
+
+    pyProg.stderr.on('data', (data) => {
+        console.log(`error:${data}`);
+    });
+
+    pyProg.stderr.on('close', () => {
+        console.log("[I] Closed");
     });
 });
 

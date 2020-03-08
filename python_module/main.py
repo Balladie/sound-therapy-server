@@ -22,3 +22,5 @@ if (__name__ == '__main__'):
             print(link, end='')
         else:
             print(link, end=',')
+
+    sys.stdout.flush()

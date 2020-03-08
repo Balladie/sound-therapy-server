@@ -36,7 +36,14 @@ class SoundChoice:
 
     # map w/ main weather + time range
     def kangMapV1(self):
-        code = json.load(open(self.workDir + "/data/kangMapV1.json"))[self.modes[self.modeIdx]][self.weatherMain][self.timeRange]
+        code = None
+        try:
+            code = json.load(open(self.workDir + "/data/kangMapV1.json"))[self.modes[self.modeIdx]][self.weatherMain][self.timeRange]
+        except KeyError:
+            with open(self.workDir + '/logs/log.txt', 'w+') as f:
+                f.write("KeyError\n")
+                f.write(str(self.modeIdx) + ' ' + self.weatherMain + ' ' + self.timeRange)
+            return None
         res = []
 
         #debug

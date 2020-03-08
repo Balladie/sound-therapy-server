@@ -41,62 +41,28 @@ class WeatherInfo:
         tNoon = tMorning + trDaySlots
         tAfternoon = tNoon + trDaySlots
 
-        tPrednextMorning = sunrise + 86400
-        trNightSlots = (tPrednextMorning - tEvening) / 3
+        tNight = tEvening + 10800
+        tDawn = tMorning - 12600
 
-        tMidnight = sunrise - sunrise % 86400
-        tNextMidnight = tMidnight + 86400
-        tNight = tEvening + trNightSlots
-        tDawn = sunrise - trNightSlots
-
-        if tNight < tNextMidnight and tDawn > tMidnight:
-            if tMidnight <= dt and dt < tDawn:
-                return 'Night'
-            elif tDawn <= dt and dt < tMorning:
-                return 'Dawn'
-            elif tMorning <= dt and dt < tNoon:
-                return 'Morning'
-            elif tNoon <= dt and dt < tAfternoon:
-                return 'Noon'
-            elif tAfternoon <= dt and dt < tEvening:
-                return 'Afternoon'
-            elif tEvening <= dt and dt < tNight:
-                return 'Evening'
-            elif tNight <= dt and dt < tNextMidnight:
-                return 'Night'
-        elif tNight > tNextMidnight:
-            tNight -= 86400
-            if tMidnight <= dt and dt < tNight:
-                return 'Evening'
-            elif tNight <= dt and dt < tDawn:
-                return 'Night'
-            elif tDawn <= dt and dt < tMorning:
-                return 'Dawn'
-            elif tMorning <= dt and dt < tNoon:
-                return 'Morning'
-            elif tNoon <= dt and dt < tAfternoon:
-                return 'Noon'
-            elif tAfternoon <= dt and dt < tEvening:
-                return 'Afternoon'
-            elif tEvening <= dt and dt < tNextMidnight:
-                return 'Evening'
-        elif tDawn < tMidnight:
-            tDawn += 86400
-            if tMidnight <= dt and dt < tMorning:
-                return 'Dawn'
-            elif tMorning <= dt and dt < tNoon:
-                return 'Morning'
-            elif tNoon <= dt and dt < tAfternoon:
-                return 'Noon'
-            elif tAfternoon <= dt and dt < tEvening:
-                return 'Afternoon'
-            elif tEvening <= dt and dt < tNight:
-                return 'Evening'
-            elif tNight <= dt and dt < tDawn:
-                return 'Night'
-            elif tDawn <= dt and dt < tNextMidnight:
-                return 'Dawn'
-        return ''
+        if tMorning <= dt and dt < tNoon:
+            return 'Morning'
+        elif tNoon <= dt and dt < tAfternoon:
+            return 'Noon'
+        elif tAfternoon <= dt and dt < tEvening:
+            return 'Afternoon'
+        elif tEvening <= dt and dt < tNight:
+            return 'Evening'
+        elif tDawn <= dt and dt < tMorning:
+            return 'Morning'
+        else:
+            return 'Night'
 
     def getHumidity(self):
         return self.weather['main']['humidity']
+
+if (__name__ == '__main__'):
+    weatherInfo = WeatherInfo(37, 126)
+    weatherInfo.saveOpenWeatherDict()
+    weatherInfo.printWeather()
+    print(weatherInfo.getMainWeather())
+    print(weatherInfo.getClassifiedTimeName())
